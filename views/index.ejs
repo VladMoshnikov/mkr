@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Головна</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="top-right-buttons">
+        <% if (user) { %>
+            <a href="/exercises">Результати</a>
+            <a href="/auth/logout">Вийти</a>
+        <% } else { %>
+            <a href="/auth/login">Вхід</a>
+            <a href="/auth/register">Реєстрація</a>
+        <% } %>
+    </div>
+    <div class="container">
+        <header>
+            <h1>Головна</h1>
+        </header>
+        <p>Ласкаво просимо до системи управління даними фізичної підготовки підрозділу.</p>
+        <p>Цей сайт призначений для автоматизації діяльності обліку результатів виконання вправ з фізичної підготовки.</p>
+        <p>Використовуючи цей сайт, ви можете:</p>
+        <ul>
+            <p>- Авторизуватись в системі</p>
+            <p>- Реєструвати нових користувачів</p>
+            <p>- Додавати, редагувати та видаляти результати вправ</p>
+        </ul>
+    </div>
+</body>
+</html>

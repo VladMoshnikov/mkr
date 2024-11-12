@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результати вправ</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Результати вправ</h1>
+        </header>
+        <div class="filter-add-container">
+            <a href="/exercises/add" class="add-button">Додати</a>
+            <div class="filter-buttons">
+                <button onclick="filterResults('all')">Всі</button>
+                <button onclick="filterResults('male')">Чоловіки</button>
+                <button onclick="filterResults('female')">Жінки</button>
+                <button id="normativesBtn">Нормативи</button>
+            </div>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Номер</th>
+                        <th>ПІБ</th>
+                        <th>100 метрів</th>
+                        <th>3 км</th>
+                        <th>Віджимання</th>
+                        <th>Стать</th>
+                        <th>Дії</th>
+                    </tr>
+                </thead>
+                <tbody id="exerciseTable">
+                    <% exercises.forEach((exercise, index) => { %>
+                        <tr data-gender="<%= exercise.gender %>">
+                            <td><%= index + 1 %></td>
+                            <td><%= exercise.pib %></td>
+                            <td><%= exercise.run100m %></td>
+                            <td><%= exercise.run3km %></td>
+                            <td><%= exercise.pushups %></td>
+                            <td><%= exercise.gender %></td>
+                            <td class="action-buttons">
+                                <a href="/exercises/edit/<%= exercise.id %>">Редагувати</a>
+                                <a href="/exercises/delete/<%= exercise.id %>">Видалити</a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="normativesModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Нормативи</h2>
+            <h3>Чоловіки</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Дисципліна</th>
+                        <th>5 балів</th>
+                        <th>4 бали</th>
+                        <th>3 бали</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>3 км</td>
+                        <td>12:20 хв</td>
+                        <td>12:40 хв</td>
+                        <td>13:20 хв</td>
+                    </tr>
+                    <tr>
+                        <td>100 м</td>
+                        <td>14:05 сек</td>
+                        <td>14:30 сек</td>
+                        <td>14:80 сек</td>
+                    </tr>
+                    <tr>
+                        <td>Віджимання</td>
+                        <td>58 раз</td>
+                        <td>55 раз</td>
+                        <td>50 раз</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Жінки</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Дисципліна</th>
+                        <th>5 балів</th>
+                        <th>4 бали</th>
+                        <th>3 бали</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>3 км</td>
+                        <td>16:20 хв</td>
+                        <td>16:40 хв</td>
+                        <td>17:30 хв</td>
+                    </tr>
+                    <tr>
+                        <td>100 м</td>
+                        <td>16:25 сек</td>
+                        <td>16:50 сек</td>
+                        <td>17:00 сек</td>
+                    </tr>
+                    <tr>
+                        <td>Віджимання</td>
+                        <td>31 раз</td>
+                        <td>30 раз</td>
+                        <td>27 раз</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function filterResults(gender) {
+            var rows = document.querySelectorAll('#exerciseTable tr');
+            rows.forEach(row => {
+                if (gender === 'all' || row.getAttribute('data-gender') === gender) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Get the modal
+        var modal = document.getElementById("normativesModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("normativesBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

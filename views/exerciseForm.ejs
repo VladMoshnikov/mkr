@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Додати новий результат</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Додати новий результат</h1>
+        </header>
+        <form action="/exercises/add" method="POST">
+            <label for="pib">ПІБ:</label>
+            <input type="text" id="pib" name="pib" required>
+            <label for="run100m">100 метрів (формат HH:MM:SS):</label>
+            <input type="time" id="run100m" name="run100m" step="1" required>
+            <label for="run3km">3 км (формат HH:MM:SS):</label>
+            <input type="time" id="run3km" name="run3km" step="1" required>
+            <label for="pushups">Віджимання:</label>
+            <input type="number" id="pushups" name="pushups" required>
+            <label for="gender">Стать:</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Чоловік</option>
+                <option value="female">Жінка</option>
+            </select>
+            <button type="submit">Додати</button>
+        </form>
+    </div>
+</body>
+</html>
